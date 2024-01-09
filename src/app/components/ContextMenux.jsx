@@ -1,13 +1,26 @@
-import React, { useRef } from 'react'
+import React, { useEffect, useRef } from 'react'
 
 const ContextMenux = ({options, cordinates, contextMenu, setContextMenu}) => {
     // It creates a mutuable object which will not re-render the component
     // useRef is used to access a DOM element directly using ref property used in any DOM element
     const contextMenuRef = useRef(null)
+    useEffect(() => {
+        const handleOutsideClick = (event) => {
+            if(event.target.id !== 'context-opener')
+            {
+                if(contextMenuRef.current && !contextMenuRef.current.contains(event.target)) setContextMenu(false)
+            }
+        }
+        document.addEventListener('click', handleOutsideClick);
+        return () => {
+            document.removeEventListener('click', handleOutsideClick); // removing listener when when returning through component mounting
+        }
+    }, [])
 
     const handleClick = (e, callback) => {
         e.stopPropagation(); // will not propogate current event further, similar like preventDefault but will not stop the default behaviour like loading of a link
         setContextMenu(false)
+        console.log('gkdjdk')
         callback();
     }
   return (

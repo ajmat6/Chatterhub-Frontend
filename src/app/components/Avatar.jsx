@@ -1,24 +1,72 @@
 import Image from 'next/image'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {FaCamera} from 'react-icons/fa'
 import ContextMenux from './ContextMenux';
+import defaultAvatar from '../../../public/default_avatar.png'
+import { PhotoPicker } from './PhotoPicker';
+import PhotoLibrary from './PhotoLibrary';
 
 const Avatar = (props) => {
     const [hover, setHover] = useState(false);
     const [contextMenu, setContextMenu] = useState(false);
     const [contextMenuCor, setContextMenuCor] = useState({x: 0, y: 0});
+    const [grabPhoto, setGrabPhoto] = useState(false);
+    const [showPhotoLibrary, setShowPhotoLibrary] = useState(false);
+
     const contextMenuOptions = [
         {name: "Take Photo", callback: () => {}},
-        {name: "Choose from Gallery", callback: () => {}},
-        {name: "Upload Photo", callback: () => {}},
-        {name: "Remove Photo", callback: () => {}}
+        {name: "Choose from Gallery", callback: () => {
+            setShowPhotoLibrary(true);
+        }},
+        {name: "Upload Photo", callback: () => {
+            setGrabPhoto(true);
+        }},
+        {name: "Remove Photo", callback: () => {
+            props.setImage(defaultAvatar)
+        }}
     ]
+
+    useEffect(() => {
+        // if grabphoto is true then we have to click the input for opening the dialog box as input is not directly 
+        if(grabPhoto)
+        {
+            const data = document.getElementById('photo-picker');
+            data.click();
+            // when the input field gets focus, then we have to set grab photo false:
+            document.body.onfocus = (e) => {
+                setTimeout(() => {
+                    setGrabPhoto(false) 
+                }, 1000);
+            }
+        }
+    }, [grabPhoto])
 
     const showContextMenu = (e) => {
         e.preventDefault();
         setContextMenu(true);
         setContextMenuCor({x: e.pageX, y: e.pageY}); // pageX and pageY gets the coordinates of the mouse pointer where mouse is clicked
     }
+
+    const photoPickerChange = async (e) => {
+        console.log("photot")
+        const newPhoto = e.target.files[0];
+
+        // to convert the image into base64 image(images that have been encoded into base64 string. This string can be used to display images, without the need for seperate image files)
+        const reader = new FileReader(); // to read the files. Filereader asynchronously reads the files of the computer
+        const data = document.createElement('img');
+
+        // when image is selected:
+        reader.onload = (event) => {
+            data.src = event.target.result;
+            data.setAttribute('data-src', event.target.result);
+        }
+        reader.readAsDataURL(newPhoto);
+        setTimeout(() => {
+            props.setImage(data.src);
+            console.log("image", data.src)
+        }, 100);
+    }
+
   return (
     <>
         <div className="flex items-center justify-center">
@@ -66,6 +114,8 @@ const Avatar = (props) => {
                 setContextMenu={setContextMenu}
             />
         }
+        {grabPhoto && <PhotoPicker onChange={photoPickerChange}/>}
+        {showPhotoLibrary && <PhotoLibrary setImage={props.setImage} hidePhotoLibrary={setShowPhotoLibrary}/>}
     </>
   )
 }

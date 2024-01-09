@@ -25,7 +25,7 @@ const onboarding = () => {
           <Input name={"About"} state={about} setState={setAbout} label={true}/>
         </div>
         <div>
-          <Avatar type={'xl'} image={defaultAvatar} setImage={setImage}/>
+          <Avatar type={'xl'} image={image} setImage={setImage}/>
         </div>
       </div>
     </div>
