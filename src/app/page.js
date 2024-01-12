@@ -1,9 +1,11 @@
-import Image from 'next/image'
+"use client"
 
-export default function Home() {
+import Main from './components/Main'
+
+const Home = () => {
   return (
-    <div>
-      ajmat
-    </div>
+    <Main />
   )
 }
+
+export default Home

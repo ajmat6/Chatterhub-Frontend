@@ -5,6 +5,7 @@ import ContextMenux from './ContextMenux';
 import defaultAvatar from '../../../public/default_avatar.png'
 import { PhotoPicker } from './PhotoPicker';
 import PhotoLibrary from './PhotoLibrary';
+import PhotoCapture from './PhotoCapture';
 
 const Avatar = (props) => {
     const [hover, setHover] = useState(false);
@@ -12,9 +13,12 @@ const Avatar = (props) => {
     const [contextMenuCor, setContextMenuCor] = useState({x: 0, y: 0});
     const [grabPhoto, setGrabPhoto] = useState(false);
     const [showPhotoLibrary, setShowPhotoLibrary] = useState(false);
+    const [showPhotoCapture, setShowPhotoCapture] = useState(false);
 
     const contextMenuOptions = [
-        {name: "Take Photo", callback: () => {}},
+        {name: "Take Photo", callback: () => {
+            setShowPhotoCapture(true);
+        }},
         {name: "Choose from Gallery", callback: () => {
             setShowPhotoLibrary(true);
         }},
@@ -116,6 +120,7 @@ const Avatar = (props) => {
         }
         {grabPhoto && <PhotoPicker onChange={photoPickerChange}/>}
         {showPhotoLibrary && <PhotoLibrary setImage={props.setImage} hidePhotoLibrary={setShowPhotoLibrary}/>}
+        {showPhotoCapture && <PhotoCapture setImage={props.setImage} hidePhotoCapture={setShowPhotoCapture}/>}
     </>
   )
 }

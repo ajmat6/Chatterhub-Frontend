@@ -1,6 +1,6 @@
 "use client" // use client have to be used for loginbutton and useRouter as they can be used in client components only and a component is by default server side
 
-import React from 'react'
+import React, { useEffect } from 'react'
 import Image from 'next/image'
 import {FcGoogle} from 'react-icons/fc'
 import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth'
@@ -8,12 +8,19 @@ import { firebasAuth } from '../utils/firebaseConfig'
 import axios from 'axios'
 import { CHECK_USER } from '../utils/urlConfig'
 import { useRouter } from 'next/navigation'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { setNewUser, setUserInfo } from '../redux/reducers/authReducer'
 
 const login =  () => {
   const router = useRouter();  // used for the navigation: router.push(/onboarding) will take you to the /onboarding url
   const dispatch = useDispatch();
+  const auth = useSelector((state) => state.auth);
+  const userInfo = auth.userInfo;
+  const newUser = auth.newUser;
+
+  useEffect(() => {
+    if(userInfo?.name && !newUser) router.push('/')
+  }, [userInfo, newUser])
 
   const loginButton = async () => {
     const provider = new GoogleAuthProvider() // from firebase
@@ -35,6 +42,10 @@ const login =  () => {
           dispatch(setUserInfo(obj))
           router.push('/onboarding')
         } 
+        else {
+          const obj = {name, email, profileImage: photo, status: ""};
+          dispatch(setUserInfo(obj));
+        }
       }
     }
     catch(err) 
