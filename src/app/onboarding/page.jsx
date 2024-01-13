@@ -48,10 +48,10 @@ const onboarding = () => {
         }
 
         const res = await axios.post(NEW_USER, form);
-        console.log(res);
         if(res.data.status)
         {
-          const obj = {name: personName, about, email, profileImage: image};
+          const {_id, name, about, email, profilePic} = res.data.user;
+          const obj = {_id, name, about, email, profileImage: profilePic};
           dispatch(setNewUser(false));
           dispatch(setUserInfo(obj));
           router.push('/')

@@ -3,8 +3,8 @@ import React from 'react'
 
 const Empty = () => {
   return (
-    <div>
-        <Image src={'/whatsapp.gif'} alt='chatterhub' height={300} width={300} className='border-conversation-border border-1 w-full  bg-panel-header-background flex flex-col h-[100vh] border-b-4 border-b-icon-green items-center justify-center'/>
+    <div className='border-conversation-border w-full bg-panel-header-background border-l flex flex-col items-center justify-center h-[100vh] border-b-4 border-b-icon-green'>
+        <Image src={'/whatsapp.gif'} alt='chatterhub' height={300} width={300}/>
     </div>
   )
 }

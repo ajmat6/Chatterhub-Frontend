@@ -1,8 +1,10 @@
 'use client'
+import { NEW_USER } from "@/app/utils/urlConfig";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import axios from "axios";
 
 const initialState = {
-    userInfo: {},
+    userInfo: undefined,
     newUser: false
 }
 

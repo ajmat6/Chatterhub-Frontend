@@ -43,7 +43,8 @@ const login =  () => {
           router.push('/onboarding')
         } 
         else {
-          const obj = {name, email, profileImage: photo, status: ""};
+          const {_id, name, about, email, profilePic} = data.user;
+          const obj = {_id, name, about, email, profileImage: profilePic};
           dispatch(setUserInfo(obj));
         }
       }
