@@ -3,3 +3,4 @@ const AUTH_ROUTES = `${HOST}/api/auth`
 
 export const CHECK_USER = `${AUTH_ROUTES}/check-user`
 export const NEW_USER = `${AUTH_ROUTES}/newUser`
+export const GET_ALL_CONTACT = `${AUTH_ROUTES}/get-contacts`

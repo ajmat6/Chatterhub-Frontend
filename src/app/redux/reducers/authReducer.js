@@ -1,11 +1,11 @@
 'use client'
-import { NEW_USER } from "@/app/utils/urlConfig";
+
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
 
 const initialState = {
     userInfo: undefined,
-    newUser: false
+    newUser: false,
+    contactsPage: false,
 }
 
 export const authSlice = createSlice({
@@ -18,13 +18,13 @@ export const authSlice = createSlice({
 
         setNewUser: (state, action) => {
             state.newUser = action.payload
+        },
+
+        setAllContactsPage: (state) => {
+            state.contactsPage = !state.contactsPage
         }
-    },
-
-    extraReducers: (builder) =>  {
-
     }
 })
 
-export const {setUserInfo, setNewUser} = authSlice.actions
+export const {setUserInfo, setNewUser, setAllContactsPage} = authSlice.actions
 export default authSlice.reducer;
