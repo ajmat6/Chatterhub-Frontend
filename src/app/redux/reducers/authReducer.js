@@ -6,6 +6,7 @@ const initialState = {
     userInfo: undefined,
     newUser: false,
     contactsPage: false,
+    currentChatUser: undefined,
 }
 
 export const authSlice = createSlice({
@@ -22,9 +23,13 @@ export const authSlice = createSlice({
 
         setAllContactsPage: (state) => {
             state.contactsPage = !state.contactsPage
+        },
+
+        changeCurrentChatUser: (state, action) => {
+            state.currentChatUser = action.payload
         }
     }
 })
 
-export const {setUserInfo, setNewUser, setAllContactsPage} = authSlice.actions
+export const {setUserInfo, setNewUser, setAllContactsPage, changeCurrentChatUser} = authSlice.actions
 export default authSlice.reducer;

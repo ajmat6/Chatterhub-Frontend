@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import React from 'react'
 
+// this component is shown when no chat is selected to show on the right side
 const Empty = () => {
   return (
     <div className='border-conversation-border w-full bg-panel-header-background border-l flex flex-col items-center justify-center h-[100vh] border-b-4 border-b-icon-green'>
