@@ -3,7 +3,7 @@ import Chatlist from './Chatlist'
 import Empty from './Empty'
 import { onAuthStateChanged } from 'firebase/auth'
 import { firebasAuth } from '../utils/firebaseConfig'
-import { CHECK_USER } from '../utils/urlConfig'
+import { CHECK_USER, GET_MESSAGES_ROUTE } from '../utils/urlConfig'
 import { useRouter } from 'next/navigation'
 import { useDispatch, useSelector } from 'react-redux'
 import { setUserInfo } from '../redux/reducers/authReducer'
@@ -33,6 +33,16 @@ const Main = () => {
             }
         }
     })
+
+    // when we click on any person chat than that person should be set as current chat user and we have to get all the messages regarding that user:
+    useEffect(() => {
+      const getMessages = async () => {
+        console.log("users ", auth?.userInfo._id, auth?.currentChatUser._id)
+        const res = await axios.get(`${GET_MESSAGES_ROUTE}/${auth?.userInfo._id}/${auth?.currentChatUser._id}`);
+        console.log(res);
+      }
+      getMessages();
+    }, [auth.currentChatUser])
   return (
     <>
       <div
