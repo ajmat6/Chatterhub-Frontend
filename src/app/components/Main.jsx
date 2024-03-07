@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { setUserInfo } from '../redux/reducers/authReducer'
 import axios from 'axios'
 import Chat from './Chat'
+import { setMessages } from '../redux/reducers/messageReducer'
 
 const Main = () => {
     const auth = useSelector((state) => state.auth);
@@ -40,8 +41,9 @@ const Main = () => {
         console.log("users ", auth?.userInfo._id, auth?.currentChatUser._id)
         const res = await axios.get(`${GET_MESSAGES_ROUTE}/${auth?.userInfo._id}/${auth?.currentChatUser._id}`);
         console.log(res);
+        dispatch(setMessages(res.data.messages));
       }
-      getMessages();
+      if(auth.currentChatUser?._id) getMessages();
     }, [auth.currentChatUser])
   return (
     <>

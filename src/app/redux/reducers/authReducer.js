@@ -1,6 +1,6 @@
 'use client'
 
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
     userInfo: undefined,
