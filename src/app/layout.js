@@ -12,7 +12,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={inter.className}>
-          <div id='photo-picker-element'></div>
+        <div id='photo-picker-element'></div>
         <Providers>
           {children}
         </Providers>

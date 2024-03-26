@@ -20,9 +20,9 @@ const ContextMenux = ({options, cordinates, contextMenu, setContextMenu}) => {
     const handleClick = (e, callback) => {
         e.stopPropagation(); // will not propogate current event further, similar like preventDefault but will not stop the default behaviour like loading of a link
         setContextMenu(false)
-        console.log('gkdjdk')
         callback();
     }
+    
   return (
     <div
         className={`bg-dropdown-background fixed py-2 z-[100] shadow-xl`}

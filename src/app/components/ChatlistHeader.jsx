@@ -10,6 +10,7 @@ const ChatlistHeader = () => {
     const getAllContactsPage = () => {
         dispatch(setAllContactsPage());
     }
+    
   return (
     <div className='h-16 px-4 py-3 flex justify-between items-center'>
         <div className='curson-pointer'>

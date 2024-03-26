@@ -10,18 +10,25 @@ import { ADD_MESSAGE_ROUTE } from '../utils/urlConfig'
 const MessageBar = () => {
     const dipatch = useDispatch();
     const auth = useSelector((state) => state.auth);
+    const socketRed  = useSelector((state) => state.socket);
+
     // const currUser = auth.currentChatUser;
     const [message, setMessage] = useState("");
     const sendMessage = async () => {
-        console.log(auth)
-        console.log("HIi")
         try {
             const res = await axios.post(ADD_MESSAGE_ROUTE, {
                 from: auth.userInfo._id,
                 to: auth.currentChatUser._id, 
                 message
             });
-            console.log(res);
+
+            // emitting socket io event of sending message:
+            socketRed.socket.emit('send-msg',  {
+                from: auth.userInfo._id,
+                to: auth.currentChatUser._id, 
+                message: res.data.message
+            })
+            // console.log(res)
         }
         catch(err) {
             console.log(err);
